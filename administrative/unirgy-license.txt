@@ -1,0 +1,62 @@
+Fra: "Unirgy LLC Support" <support@unirgy.com>
+Emne: Download and installation instructions for order #7635
+Dato: 10. juni 2013 15:25:18 CEST
+Til: "Jan Høydahl" <ci@cominvent.com>
+
+Hello, Jan!
+
+Thank you for your order.
+
+Please follow these instructions to download and install purchased extensions:
+
+1. Make sure you have ionCube loaders installed:
+
+  http://ioncube.com/loader_installation.php
+  http://ioncube.com/loaders.php
+
+2. Download and install free Unirgy package manager Magento extension:
+
+  http://download.unirgy.com/Unirgy_Installer-latest.zip
+
+3. If you have Magento cache enabled, go to System > Cache Management
+  and click "Flush Magento Cache".
+  If you have APC cahce enabled as Magento backend cahce, refresh it as well.
+
+4. Go to System > Tools > Unirgy Installer, open "Add Licenses" tab.
+  http://unirgy.com/wiki/installer-overview
+
+5. Paste and Add the following key(s) one at the time:
+
+     D19SD-8B13V-834LL-T4W2P-F5PF6
+     ( Unirgy_Dropship, Unirgy_DropshipBatch, Unirgy_DropshipPayout, Unirgy_DropshipShippingClass, Unirgy_DropshipTierCommission, Unirgy_DropshipTierShipping, Unirgy_DropshipVacation, Unirgy_DropshipVendorProduct, Unirgy_MarketplaceSuite)
+
+  Initially, the licenses will be issued for 3 days, and you can start
+  using the extensions immediately.
+
+  If you have purchased permanent license(s), they will be updated
+  after the order is reviewed by our staff.
+
+6. If you wish to install purchased extensions automatically, go to
+  System > Configuration > Advanced > Unirgy Installer and configure local FTP,
+  if your web service user does not have file write permissions.
+
+7. Go to "Manage Modules" tab. If you chose to install purchased extensions:
+
+  6a. MANUALLY:
+     Click on each "Hover/Click" link for every extension, download and install.
+
+  6b. AUTOMATICALLY:
+     Select all extensions, and choose Upgrade/Reinstall action.
+
+8. Clear the cache and re-login to Magento admin.
+
+If you have any questions or comments throughout the process,
+please do not hesitate to contact us.
+
+Best regards,
+Unirgy LLC Support Team (support@unirgy.com)
+
+P.O.Box 90304
+Portland, OR 97290
+T: 503.298.6894
+F: 503.914.0385
