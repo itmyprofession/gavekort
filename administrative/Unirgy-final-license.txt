@@ -1,0 +1,48 @@
+Fra: "Unirgy LLC Support" <support@unirgy.com>
+Emne: Important update about your Unirgy License
+Dato: 10. juni 2013 16:28:50 CEST
+Til: "Jan Høydahl" <ci@cominvent.com>
+
+Hi  Jan,
+
+Please take note of the new information:
+
+License: D19SD-8B13V-834LL-T4W2P-F5PF6
+
+License type: Domain
+
+Status: Active
+
+Products covered:
+Unirgy_Dropship
+Unirgy_DropshipBatch
+Unirgy_DropshipPayout
+Unirgy_DropshipShippingClass
+Unirgy_DropshipTierCommission
+Unirgy_DropshipTierShipping
+Unirgy_DropshipVacation
+Unirgy_DropshipVendorProduct
+Unirgy_MarketplaceSuite
+
+Servers:
+*@127.0.0.1
+*.gavekort.no
+gavekort.no
+*.vervemedia.org 
+vervemedia.org 
+
+
+Support/upgrades expire: 06/10/14
+
+Your license information should be automatically updated within Magento in the next 24 hours.
+
+If you wish to manually refresh your license, go to:
+System > Tools > Simple Upgrades and click on "Refresh Licenses"
+
+Best regards,
+Unirgy LLC Support Team (support@unirgy.com)
+
+P.O.Box 90304
+Portland, OR 97290
+T: 503.298.6894
+F: 503.914.0385
