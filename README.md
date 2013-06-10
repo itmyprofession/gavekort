@@ -19,7 +19,21 @@ for more details.
 
 ## Project planning and execution
 
-The project will be divided in 3 milestones. See "issues" tab for more info and detailed planning of each milestone.
+The project will be divided in 3 milestones. The project planning tool is [pms.ewallsolutions.com/jan/](http://pms.ewallsolutions.com/jan/).
+Also see the "issues" tab here in GitHub for code-related issues.
 
-Each milestone will be presented through vendor's test servers, and once accepted by customer, the code will be checked
+Each milestone will be presented through vendor's test server [gavekort.vervemedia.org](http://gavekort.vervemedia.org/), 
+and once accepted by customer, the code will be checked
 in to GitHub as a deliverable, and funds will be released through freelancer.com.
+
+## Login info dev server
+
+FTP:
+
+    user: gavekort@vervemedia.org
+    pass: verve@123
+
+DB:
+
+    user: verve2_gavekort
+    pass: verve@123
