@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ewall_Override>
-			<version>0.1.3</version>
+			<version>0.1.8</version>
 		</Ewall_Override>
 	</modules>
 	<frontend>
@@ -28,6 +28,21 @@
             <override>
                 <class>Ewall_Override_Helper</class>
             </override>
+            <udprod>
+				<rewrite>
+					<data>Ewall_Override_Helper_ProductEdit</data>
+				</rewrite>
+            </udprod>
+            <udropship>
+				<rewrite>
+					<data>Ewall_Override_Helper_ShipmentCollection</data>
+				</rewrite>
+            </udropship>
+            <ugiftcert>
+				<rewrite>
+					<data>Ewall_Override_Helper_Ugiftcert_Data</data>
+				</rewrite>
+            </ugiftcert>
         </helpers>
 	   <blocks>
 			<override>
@@ -41,6 +56,7 @@
 			<udropship>
 				<rewrite>
 					<vendor_preferences>Ewall_Override_Block_Vendor_Preferences</vendor_preferences>
+					<vendor_product_grid>Ewall_Override_Block_Vendor_Product_Grid</vendor_product_grid>
 				</rewrite>
 			</udropship>
 			<udropship>
@@ -48,6 +64,16 @@
 					<adminhtml_vendor_edit_tabs>Ewall_Override_Block_Adminhtml_Vendor_Edit_Tabs</adminhtml_vendor_edit_tabs>
 				</rewrite>
 			</udropship>
+			<ugiftcert>
+				<rewrite>
+					<product_type>Ewall_Override_Block_Product_Type</product_type>
+				</rewrite>
+			</ugiftcert>
+			<ugiftcert>
+				<rewrite>
+					<cart_item>Ewall_Override_Block_Ugiftcert_Cart_Item</cart_item>
+				</rewrite>
+			</ugiftcert>
 	   </blocks>
 	   <models>
             <override>
@@ -63,8 +89,34 @@
 					<vendordelivery>
 						<table>ewall_vendor_delivery</table>
 					</vendordelivery>
+					<vendorproducts>
+						<table>ewall_vendor_products_deliverymethods</table>
+					</vendorproducts>
+					<vendorprepurchased>
+						<table>ewall_vendor_products_prepurchased</table>
+					</vendorprepurchased>
 				</entities>
 			</override_mysql4>
+			<ugiftcert>
+				<rewrite>
+					<observer>Ewall_Override_Model_Giftcert_Observer</observer>
+				</rewrite>
+			</ugiftcert>
+			<ugiftcert>
+				<rewrite>
+					<quote>Ewall_Override_Model_Giftcert_Quote</quote>
+				</rewrite>
+			</ugiftcert>
+			<ugiftcert>
+				<rewrite>
+					<product_typece150>Ewall_Override_Model_Giftcert_Product_TypeCE150</product_typece150>
+				</rewrite>
+			</ugiftcert>
+			<sales>
+				<rewrite>
+					<quote>Ewall_Override_Model_Sales_Quote</quote>
+				</rewrite>
+			</sales>
        </models>
 	   <resources>
             <override_setup>
@@ -86,6 +138,115 @@
 				</connection>
 			 </override_read>
         </resources>
+        <events>
+			<catalog_product_prepare_save>
+				<observers>
+					<override>
+						<type>singleton</type>
+						<class>override/observer</class>
+						<method>catalog_product_prepare_save</method>
+					</override>
+				</observers>
+			</catalog_product_prepare_save>
+			<catalog_product_collection_load_after>
+				<observers>
+					<override>
+						<type>singleton</type>
+						<class>override/observer</class>
+						<method>catalog_product_collection_load_after</method>
+					</override>
+				</observers>
+			</catalog_product_collection_load_after>
+			<catalog_product_load_after>
+                <observers>
+                    <override>
+                        <type>singleton</type>
+                        <class>override/observer</class>
+                        <method>catalog_product_load_after</method>
+                    </override>
+                </observers>
+            </catalog_product_load_after>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <override>
+						<type>singleton</type>
+                        <class>override/observer</class>
+                        <method>setProductInfo</method>
+                    </override>
+                </observers>
+            </checkout_cart_product_add_after>
+            <checkout_cart_product_update_after>
+                <observers>
+                    <override>
+						<type>singleton</type>
+                        <class>override/observer</class>
+                        <method>setProductInfo</method>
+                    </override>
+                </observers>
+            </checkout_cart_product_update_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <shipmentsave>
+                        <type>model</type>
+                        <class>override/observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </shipmentsave>
+                </observers>
+            </sales_order_shipment_save_after>
+            <ugiftcert_cert_create_from_order>
+                <observers>
+                    <override>
+                        <type>model</type>
+                        <class>override/observer</class>
+                        <method>ugiftcert_cert_create_from_order</method>
+                    </override>
+                </observers>
+            </ugiftcert_cert_create_from_order>
+            <controller_action_predispatch_ugiftcertadmin_adminhtml_cert_delete>
+				<observers>
+                    <override>
+                        <type>model</type>
+                        <class>override/observer</class>
+                        <method>controller_action_predispatch_ugiftcertadmin_adminhtml_cert_delete</method>
+                    </override>
+                </observers>
+			</controller_action_predispatch_ugiftcertadmin_adminhtml_cert_delete>
+            <controller_action_predispatch_ugiftcertadmin_adminhtml_cert_massDelete>
+				<observers>
+                    <override>
+                        <type>model</type>
+                        <class>override/observer</class>
+                        <method>controller_action_predispatch_ugiftcertadmin_adminhtml_cert_massDelete</method>
+                    </override>
+                </observers>
+			</controller_action_predispatch_ugiftcertadmin_adminhtml_cert_massDelete>
+        </events>
+        <template>
+            <email>
+                <override_override_shipment_new_gavekort translate="label" module="override">
+                    <label>Gavekort Shipment</label>
+                    <file>sales/shipment_new_gavekort.html</file>
+                    <type>html</type>
+                </override_override_shipment_new_gavekort>
+                <override_override_shipment_new_guest_gavekort translate="label" module="override">
+                    <label>Gavekort Shipment Guest</label>
+                    <file>sales/shipment_new_guest_gavekort.html</file>
+                    <type>html</type>
+                </override_override_shipment_new_guest_gavekort>
+			</email>
+		</template>
+		<fieldsets>
+            <sales_convert_quote_item>
+                <vendor_delivery_id>
+                    <to_order_item>*</to_order_item>
+                </vendor_delivery_id>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <vendor_delivery_id>
+                    <to_quote_item>*</to_quote_item>
+                </vendor_delivery_id>
+            </sales_convert_order_item>
+        </fieldsets>
 	</global>
 	<admin>
 		<routers>
@@ -152,5 +313,44 @@
 				</override>
 			</updates>
 		</layout>
+		<events>
+			<sales_order_shipment_save_after>
+                <observers>
+                    <override>
+						<type>singleton</type>
+                        <class>override/observer</class>
+                        <method>sales_order_shipment_save_after</method>
+                    </override>
+                </observers>
+            </sales_order_shipment_save_after>
+            <catalog_product_save_after>
+                <observers>
+                    <fishpig_save_product_data>
+                        <type>singleton</type>
+                        <class>override/observer</class>
+                        <method>savePrepurchasedTabData</method>
+                    </fishpig_save_product_data>
+                </observers>
+            </catalog_product_save_after>
+        </events>
 	</adminhtml>
+	<crontab>
+		<jobs>
+			<override_udropship_shipment_notify>
+				<schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+				<run><model>override/observer::sendShipmentNotification</model></run>
+			</override_udropship_shipment_notify>
+		</jobs>
+	</crontab>
+    <default>
+		<udprod>
+			<general>
+				<type_of_product><![CDATA[a:2:{i:0;a:2:{s:15:"type_of_product";s:20:"Simple Product Types";s:13:"attribute_set";a:2:{i:0;s:2:"66";i:1;s:2:"64";}}i:1;a:2:{s:15:"type_of_product";s:26:"Configurable Product Types";s:13:"attribute_set";a:2:{i:0;s:2:"66";i:1;s:2:"64";}}}]]></type_of_product>
+				<allowed_types><![CDATA[*all*,Simple Product Types,Configurable Product Types]]></allowed_types>
+			</general>
+			<form>
+				<fieldsets><![CDATA[[{"title":"Enter Product Information","sort_order":"10","top_columns_def":[{"column_field":"product.name","is_required":"1","sort_order":"10"},{"column_field":"product.sku","is_required":"1","sort_order":"20"},{"column_field":"product.weight","is_required":"1","sort_order":"30"},{"column_field":"product.tax_class_id","is_required":"1","sort_order":"40"}],"bottom_columns_def":[],"left_columns_def":[{"column_field":"product.price","is_required":"1","sort_order":"10"},{"column_field":"system.product_categories","is_required":"1","sort_order":"20"},{"column_field":"product.description","is_required":"1","sort_order":"30"},{"column_field":"product.short_description","is_required":"1","sort_order":"40"}],"right_columns_def":[],"fields_extra":{"product.name":{"use_limit_type":null,"limit_type":null},"product.sku":{"use_limit_type":null,"limit_type":null},"product.weight":{"use_limit_type":null,"limit_type":null},"product.tax_class_id":{"use_limit_type":null,"limit_type":null},"product.price":{"use_limit_type":null,"limit_type":null},"system.product_categories":{"use_limit_type":null,"limit_type":null},"product.description":{"use_limit_type":null,"limit_type":null},"product.short_description":{"use_limit_type":null,"limit_type":null}},"required_fields":["product.name","product.sku","product.weight","product.tax_class_id","product.price","system.product_categories","product.description","product.short_description"],"top_columns":["product.name","product.sku","product.weight","product.tax_class_id"],"left_columns":["product.price","system.product_categories","product.description","product.short_description"]},{"title":"GC Settings","sort_order":"20","top_columns_def":[{"column_field":"product.ugiftcert_amount_config","is_required":"1","sort_order":"10"}],"bottom_columns_def":[],"left_columns_def":[],"right_columns_def":[],"fields_extra":{"product.ugiftcert_amount_config":{"use_limit_type":null,"limit_type":null}},"required_fields":["product.ugiftcert_amount_config"],"top_columns":["product.ugiftcert_amount_config"]}]]]></fieldsets>
+			</form>
+		</udprod>
+    </default>
 </config>

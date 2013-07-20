@@ -1,0 +1,20 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend">Prepurchased codes</h4>
+	</div>
+	<div id="group_fields241" class="fieldset fieldset-wide">
+		<div class="hor-scroll">
+			<table cellspacing="0" class="form-list">
+				<tbody>
+					<tr>
+						<td class="label"><label for="description">Import prepurchased codes</label></td>
+						<td class="value">
+							<input type="file" class="input-file" name="prepurchasedcode" id="prepurchasedcode" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<?php echo $this->getLayout()->createBlock('override/adminhtml_catalog_product_prepurchasedcode_grid')->toHtml(); ?>
+</div>

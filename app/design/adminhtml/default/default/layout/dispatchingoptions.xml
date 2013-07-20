@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <dispatchingoptions_adminhtml_dispatchingoptionsbackend_index>
+	<reference name="content">
+	  <block type="dispatchingoptions/adminhtml_dispatchingoptionsbackend" name="dispatchingoptionsbackend" template="dispatchingoptions/dispatchingoptionsbackend.phtml"/>
+	</reference>
+  </dispatchingoptions_adminhtml_dispatchingoptionsbackend_index>
+  <dispatchingoptions_adminhtml_dispatchingoption_index>
+	<reference name="content">
+	  <block type="dispatchingoptions/adminhtml_dispatchingoption" name="dispatchingoption" />
+	</reference>
+  </dispatchingoptions_adminhtml_dispatchingoption_index>
+</layout>

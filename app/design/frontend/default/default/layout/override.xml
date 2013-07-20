@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+	<udropship_vendor_preferences>
+		 <remove name="preferences" />
+		 <reference name="content">
+			 <block type="udropship/vendor_preferences" template="override/dropship/vendor/preferences.phtml" name="override_preferences" />
+    	 </reference>
+	</udropship_vendor_preferences>
+	<PRODUCT_TYPE_ugiftcert>
+		<remove name="product.info.ugiftcert" />
+		<reference name="product.info">
+            <block type="ugiftcert/product_type" name="product.info.ugiftcert.override" as="product_type_data" template="override/giftcert/product/type.phtml"/>
+        </reference>
+	</PRODUCT_TYPE_ugiftcert>
+	<udropship_vendor>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/override/style.css</stylesheet></action>
+        </reference>
+    </udropship_vendor>
+</layout>

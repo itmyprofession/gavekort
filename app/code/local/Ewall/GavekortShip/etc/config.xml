@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ewall_GavekortShip>
+      <version>0.1.0</version>
+    </Ewall_GavekortShip>
+  </modules>
+  <global>
+    <helpers>
+      <gavekortship>
+        <class>Ewall_GavekortShip_Helper</class>
+      </gavekortship>
+    </helpers>
+	<models>
+	  <gavekortship>
+		<class>Ewall_GavekortShip_Model</class>
+		<resourceModel>gavekortship_mysql4</resourceModel>
+	  </gavekortship>
+	</models>
+  </global>    
+	<default>
+        <carriers>
+            <gavekortno>
+                <active>1</active>
+                <model>gavekortship/carrier_gavekortno</model>
+                <name>Gavekort.no Shipping Method</name>
+                <title>Gavekort.no Shipping Method</title>
+                <description>Gavekort.no Shipping Method</description>
+                <sort_order>100</sort_order>
+            </gavekortno>
+        </carriers>
+    </default>
+</config> 

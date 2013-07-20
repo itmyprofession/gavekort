@@ -1,6 +1,30 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 	
+	<adminhtml_catalog_product_edit>
+		<reference name="js">
+			<block type="core/template" name="override.deliverymethod" template="override/deliverymethod.phtml"/>
+		</reference>
+		<reference name="product_tabs">
+            <action method="addTab">
+                <name>prepurchased_code_tab</name>
+                <block>override/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+	</adminhtml_catalog_product_edit>
+
+	<adminhtml_catalog_product_new>
+		<reference name="js">
+			<block type="core/template" name="override.deliverymethod" template="override/deliverymethod.phtml"/>
+		</reference>
+		<reference name="product_tabs">
+            <action method="addTab">
+                <name>prepurchased_code_tab</name>
+                <block>override/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+	</adminhtml_catalog_product_new>
+	
 	<override_adminhtml_deliverymethods_index>
 		<reference name="content">
 			<block type="override/adminhtml_deliverymethods" name="deliverymethods" />

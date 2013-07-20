@@ -1,0 +1,6 @@
+.udropship-vendor #shipment-grid tbody tr td div.col2-set.shipment-items .data-table dl.item-options dt {
+	font-weight: bold;
+}
+.udropship-vendor #shipment-grid tbody tr td div.col2-set.shipment-items .data-table tr td {
+	border-bottom: 1px solid #ddd;
+}
