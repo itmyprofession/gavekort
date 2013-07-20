@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	
+	Event.observe(window, 'load', deliverychangemethod);
+	
+	function deliverychangemethod() {
+		initiateVendorDeliveryMethods();
+		Event.observe($('udropship_vendor'), 'change', deliverychange);
+	}
+	
+	function deliverychange()
+	{
+		var value = $('udropship_vendor').getValue();
+		var url = '<?php echo Mage::helper("adminhtml")->getUrl("override/adminhtml_deliverymethods/getdeliverymethods"); ?>';
+		var product_id = '<?php echo $this->getRequest()->getParam('id'); ?>';
+		/* winCompare = new Window({className:'magento',title:'Compare Products',url:url,width:300,height:200,minimizable:true,maximizable:true,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4}});
+		winCompare.setZIndex(100);
+		winCompare.showCenter(true); */
+		if(value!='') {
+			new Ajax.Request(url, {
+				method: 'post',
+				parameters: { vendor_id : value, product_id : product_id },
+				onSuccess: function(transport) {
+					var response = transport.responseText;
+					if(!response) {
+						document.getElementById('delivery_method').options.length = 0;
+						alert("No Delivery Methods available for this Vendor!");
+					} else {
+						document.getElementById('delivery_method').options.length = 0;
+						document.getElementById('delivery_method').innerHTML = response;
+					}
+				},
+				onFailure: function() { alert('Something went wrong...'); }
+			});
+		} else {
+			//alert('Please choose Vendor to choose assign delivery method!');
+		}
+	}
+	
+	function initiateVendorDeliveryMethods()
+	{
+		deliverychange();
+	}
+	
+</script>
