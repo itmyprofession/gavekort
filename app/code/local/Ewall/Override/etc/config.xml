@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ewall_Override>
-			<version>0.1.8</version>
+			<version>0.1.10</version>
 		</Ewall_Override>
 	</modules>
 	<frontend>
@@ -21,6 +21,13 @@
 				</modules>
 			  </args>
 			</udropship>
+			<udprod>
+			  <args>
+				<modules>
+				  <Ewall_Override_DropshipVendorProduct before="Unirgy_DropshipVendorProduct">Ewall_Override_DropshipVendorProduct</Ewall_Override_DropshipVendorProduct>
+				</modules>
+			  </args>
+			</udprod>
 	   </routers>
     </frontend>
 	<global>
@@ -51,6 +58,16 @@
 			<udprod>
 				<rewrite>
 					<vendor_products>Ewall_Override_Block_Vendor_Products</vendor_products>
+				</rewrite>
+			</udprod>
+			<udprod>
+				<rewrite>
+					<vendor_product>Ewall_Override_Block_Vendor_Product</vendor_product>
+				</rewrite>
+			</udprod>
+			<udprod>
+				<rewrite>
+					<vendor_product_renderer_fieldsetElement>Ewall_Override_Block_Vendor_Product_Renderer_FieldsetElement</vendor_product_renderer_fieldsetElement>
 				</rewrite>
 			</udprod>
 			<udropship>
@@ -148,6 +165,15 @@
 					</override>
 				</observers>
 			</catalog_product_prepare_save>
+			<catalog_vendor_product_prepare_save>
+				<observers>
+					<override>
+						<type>singleton</type>
+						<class>override/observer</class>
+						<method>catalog_product_prepare_save</method>
+					</override>
+				</observers>
+			</catalog_vendor_product_prepare_save>
 			<catalog_product_collection_load_after>
 				<observers>
 					<override>

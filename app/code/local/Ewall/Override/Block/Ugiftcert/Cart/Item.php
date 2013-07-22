@@ -31,12 +31,21 @@ class Ewall_Override_Block_Ugiftcert_Cart_Item extends Mage_Checkout_Block_Cart_
                         $value = $this->escapeHtml($option->getValue());
                         break;
                 }
-                $options[] = array(
-                    'label' => $label,
-                    'value' => $value,
-                );
+                $check = $this->getLabelCheck($label);
+                if($check){
+					$options[] = array(
+						'label' => $label,
+						'value' => $value,
+					);
+				}
             }
         }
         return $options;
     }
+    
+    public function getLabelCheck($label){
+		if($label!='Sender Name' && $label!='Sender Email' && $label!='Sender Address' ){
+				return 1;
+		}
+	}
 }

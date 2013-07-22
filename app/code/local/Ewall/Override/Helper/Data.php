@@ -176,14 +176,51 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 		$item = Mage::getModel('sales/order_item')->load($order_item->getId());
 		$product_id = $item->getData('product_id');
 		$product_type = $item->getData('product_type');
+		if($product_type=='ugiftcert') {
+			$item->setIsVirtual(0)->save();
+		}
 		$vendorprepurchased = Mage::getModel('override/vendorprepurchased')->getCollection()->addFieldToFilter('used',0)->addFieldToFilter('pid',$product_id);
 		if($vendorprepurchased->count()>0) {
 			foreach($vendorprepurchased as $codes) {
 				$cert->setCertNumber($codes->getCode());
 				$codes->setUsed(1)->save();
-				Mage::log('New code assigned => '.$codes->getCode(),null,'prepurchasedcodes.log',true);
 				break;
 			}
 		}
+	}
+	
+	public function checkProduct($_product, $set_id = false)
+	{
+		if ($_product->getId()) {
+			$attributeSetModel = Mage::getModel('eav/entity_attribute_set')->load($_product->getAttributeSetId());
+			$attributeSetName  = $attributeSetModel->getAttributeSetName();
+			if($attributeSetName=='Vendor GC') {
+				$PrePurchasedGC = true;
+			} else {
+				$PrePurchasedGC = false;
+			}
+			if($PrePurchasedGC && $_product->getTypeId() == 'ugiftcert') {
+				$goAhead = true;
+			} else {
+				$goAhead = false;
+			}
+		} else {
+			if($set_id) {
+				$attributeSetModel = Mage::getModel('eav/entity_attribute_set')->load($set_id);
+				$attributeSetName  = $attributeSetModel->getAttributeSetName();
+				if($attributeSetName=='Vendor GC') {
+					$goAhead = true;
+				} else {
+					$goAhead = false;
+				}
+			} else {
+				$goAhead = false;
+			}
+		}
+		return $goAhead;
+	}
+	
+	public function getBalanceCheckUrl(){
+		return Mage::getUrl('ugiftcert/customer/balance/');
 	}
 }

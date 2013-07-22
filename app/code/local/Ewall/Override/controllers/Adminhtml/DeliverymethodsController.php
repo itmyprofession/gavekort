@@ -87,7 +87,7 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 					try {
 
 						
-					$post_data['methods']=implode(',',$post_data['methods']);
+					$post_data['methods']=$post_data['methods'];
 
 						$model = Mage::getModel("override/deliverymethods")
 						->addData($post_data)

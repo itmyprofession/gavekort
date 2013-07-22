@@ -28,10 +28,10 @@
 <config>
     <global>
         <install>
-            <date><![CDATA[Fri, 19 Jul 2013 07:34:21 +0000]]></date>
+            <date><![CDATA[Sat, 20 Jul 2013 07:03:54 +0000]]></date>
         </install>
         <crypt>
-            <key><![CDATA[93493b93fb829574540dd5ba974451f6]]></key>
+            <key><![CDATA[f51d34a8ef325c7db0f6fe825979a1cc]]></key>
         </crypt>
         <disable_local_modules>false</disable_local_modules>
         <resources>
@@ -43,7 +43,7 @@
                     <host><![CDATA[localhost]]></host>
                     <username><![CDATA[root]]></username>
                     <password><![CDATA[root]]></password>
-                    <dbname><![CDATA[gavekort]]></dbname>
+                    <dbname><![CDATA[gavekort_sample]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>
                     <type><![CDATA[pdo_mysql]]></type>

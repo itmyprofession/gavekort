@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <layout>
+	<default>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="override"><label>Check Your Gift Card Balance</label><url helper="override/getBalanceCheckUrl"/><title>Check Your Gift Card Balance</title><prepare/><urlParams/><position>10</position></action>
+        </reference>
+    </default>
 	<udropship_vendor_preferences>
 		 <remove name="preferences" />
 		 <reference name="content">
@@ -16,5 +21,5 @@
         <reference name="head">
             <action method="addCss"><stylesheet>css/override/style.css</stylesheet></action>
         </reference>
-    </udropship_vendor>
+    </udropship_vendor>   
 </layout>

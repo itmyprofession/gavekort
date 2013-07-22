@@ -131,7 +131,7 @@ class Ewall_Override_Model_Giftcert_Observer extends Unirgy_Giftcert_Model_Obser
                         continue;
                     }
                     Mage::helper('ugiftcert/email')->sendOrderItemEmail($item);
-                    $item->setQtyShipped($item->getQtyInvoiced());
+                    //$item->setQtyShipped($item->getQtyInvoiced());
                 }
             }
         }

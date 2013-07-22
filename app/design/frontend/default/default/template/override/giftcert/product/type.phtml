@@ -26,27 +26,43 @@ $collection = $this->getDeliveryCollection($deliverid);
                value="<?php echo $emailTpl;?>"<?php echo empty($emailTpl) ? 'disabled="disabled"' : '';?>>
         <input type="hidden" name="pdf_template" id="u_pdf_template"
                value="<?php echo $pdfTpl;?>"<?php echo empty($emailTpl) ? 'disabled="disabled"' : '';?>>
-        <input type="hidden" name="vendor_delivery_id" id="delivery_id" value="<?php if(count($deliverid)==1){ echo $deliverid[0]; }else{ echo $this->getDelivery(); } ?>" />
+       
         <div class="ugc-form-data" id="ugc-form-data">
             <?php /* if($both): */ // both email and mail are allowed, display toggles ?>
             <?php $hideForm = true; ?>
                 <div id="ugc-select-delivery-type" class="ugc-form-data-part ugc-delivery-type">
                     <?php
+                    foreach($collection as $collect){
+						if($collect->getMethods()==0){
+							if($attributeSetName=='Pre Purchased GC'){
+								$collectmethodes[] = $collect->getMethods();
+								$pre_id = $collect->getDeliveryId();
+							}
+						}
+					}
                     foreach($collection as $collect){ 
 						if($collect->getMethods()==0){
 					?>
 						<div class="delivery_type_cont">
 							<label for="delivery_type_virtual">
-								<input type="radio" name="delivery_type" id="delivery_type_virtual_<?php echo $collect->getDeliveryId(); ?>" _data="<?php echo $collect->getDeliveryId(); ?>" value="virtual" class="delivery_type validate-one-required-by-name"<?php if((count($collection)==1)||($this->getDelivery()==$collect->getDeliveryId())){ echo 'checked="checked"'; } elseif($attributeSetName=='Pre Purchased GC') { echo 'checked="checked"'; } ?>>&nbsp;<?php echo $this->getDeliveryOptions($collect,$vendor_id); ?>
+								<input type="radio" name="delivery_type" id="delivery_type_virtual_<?php echo $collect->getDeliveryId(); ?>" _data="<?php echo $collect->getDeliveryId(); ?>" value="virtual" class="delivery_type validate-one-required-by-name"<?php if((count($collection)==1)||($this->getDelivery()==$collect->getDeliveryId())){ echo 'checked="checked"'; } elseif($attributeSetName=='Pre Purchased GC'&&count($collectmethodes)==1) { echo 'checked="checked"'; } ?>>&nbsp;<?php echo $this->getDeliveryOptions($collect,$vendor_id); ?>
 							</label>
 						</div>
-					<?php }elseif($collect->getMethods()==1 && $attributeSetName!='Pre Purchased GC'){ ?>
+						<?php }elseif($collect->getMethods()==1 && $attributeSetName!='Pre Purchased GC'){ ?>
 						<div class="delivery_type_cont">
 							<label for="delivery_type_physical">
 								<input type="radio" name="delivery_type" id="delivery_type_physical_<?php echo $collect->getDeliveryId(); ?>" _data="<?php echo $collect->getDeliveryId(); ?>" value="physical" class="delivery_type validate-one-required-by-name"<?php if((count($collection)==1)||($this->getDelivery()==$collect->getDeliveryId())){ echo 'checked="checked"'; } ?>>&nbsp;<?php echo $this->getDeliveryOptions($collect,$vendor_id); ?>
 							</label>
 						</div>
-					<?php }
+					<?php 
+						}
+					}
+					if(($attributeSetName=='Pre Purchased GC') && (count($collectmethodes)==1)){
+					?>
+						<input type="hidden" name="vendor_delivery_id" id="delivery_id" value="<?php echo $pre_id; ?>" />
+					<?php }else{ ?>
+						<input type="hidden" name="vendor_delivery_id" id="delivery_id" value="<?php if(count($deliverid)==1){ echo $deliverid[0]; }else{ echo $this->getDelivery(); } ?>" />
+					<?php 
 					}
                     ?>                    
                 </div>

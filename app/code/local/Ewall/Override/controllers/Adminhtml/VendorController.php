@@ -76,8 +76,10 @@ class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtm
                     }
                     $this->_redirect('*/*/edit', array('id' => $r->getParam('id'), 'tab'=>'shipping_section'));
                 } else {
+					$email = $r->getParam('email');
+					$load = Mage::getModel('udropship/vendor')->load($email,'email')->getVendorId();
                     if ($r->getParam('save_continue')) {
-                        $this->_redirect('*/*/edit', array('id' => $r->getParam('id')));
+                        $this->_redirect('*/*/edit', array('id' => $load));
                     } else {
                         $this->_redirect('*/*/');
                     }

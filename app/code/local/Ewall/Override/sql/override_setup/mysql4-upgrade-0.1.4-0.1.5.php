@@ -14,7 +14,7 @@ foreach($sets as $sNewSetName) {
 	if ($oAttributeset->validate()) {
 		$oAttributeset
 			->save()
-			->initFromSkeleton(9)
+			->initFromSkeleton($setup->getAttributeSetId('catalog_product', 'default'))
 			->save();
 	}
 	else {
