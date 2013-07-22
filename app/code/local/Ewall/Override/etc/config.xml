@@ -156,7 +156,7 @@
 			 </override_read>
         </resources>
         <events>
-			<catalog_product_prepare_save>
+			<catalog_product_save_after>
 				<observers>
 					<override>
 						<type>singleton</type>
@@ -164,7 +164,7 @@
 						<method>catalog_product_prepare_save</method>
 					</override>
 				</observers>
-			</catalog_product_prepare_save>
+			</catalog_product_save_after>
 			<catalog_vendor_product_prepare_save>
 				<observers>
 					<override>
