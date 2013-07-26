@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	
+	<adminhtml_catalog_product_edit>
+		<reference name="js">
+			<block type="core/template" name="override.deliverymethod" template="override/deliverymethod.phtml"/>
+		</reference>
+		<reference name="product_tabs">
+            <action method="addTab">
+                <name>prepurchased_code_tab</name>
+                <block>override/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+	</adminhtml_catalog_product_edit>
+
+	<adminhtml_catalog_product_new>
+		<reference name="js">
+			<block type="core/template" name="override.deliverymethod" template="override/deliverymethod.phtml"/>
+		</reference>
+		<reference name="product_tabs">
+            <action method="addTab">
+                <name>prepurchased_code_tab</name>
+                <block>override/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+	</adminhtml_catalog_product_new>
+	
+	<override_adminhtml_deliverymethods_index>
+		<reference name="content">
+			<block type="override/adminhtml_deliverymethods" name="deliverymethods" />
+		</reference>
+	</override_adminhtml_deliverymethods_index>
+
+	<udropshipadmin_adminhtml_vendor_delivery>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="override/adminhtml_vendor_edit_tab_delivery" name="vendor.delivery.grid"/>
+			<block type="adminhtml/widget_grid_serializer" name="grid_serializer">
+				<reference name="grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>vendor.delivery.grid</grid_block_name>
+						<data_callback>getSelectedMethods</data_callback>
+						<hidden_input_name>links[deliverymethods]</hidden_input_name>
+						<reload_param_name>deliverymethods</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+                       <input_name>price</input_name>
+					</action>
+				</reference>
+           </block>
+       </block>
+	</udropshipadmin_adminhtml_vendor_delivery>
+	
+	<udropshipadmin_adminhtml_vendor_deliverygrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="override/adminhtml_vendor_edit_tab_delivery" name="vendor.delivery.grid"/>
+		</block>
+	</udropshipadmin_adminhtml_vendor_deliverygrid>
+		
+</layout>

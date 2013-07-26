@@ -1,0 +1,56 @@
+<?php
+/* @var $this Unirgy_Giftcert_Block_Product_Type */
+$_options = $this->getProductPersonalizationOptions();
+?>
+<script type="text/javascript">
+    var ugoftcertPro = {
+        personalizationOptions: $H(<?php echo Zend_Json::encode($_options);?>),
+        dropDown: function () {
+            var tpl = '<div id="gc-personalization-options">';
+            tpl += '<label for="pers-opts"><?php echo $this->__("Personalize Certificate:");?></label><br>';
+            tpl += '<select id="pers-opts">';
+            tpl += '<option value="0"><?php echo $this->__("-- Select option --");?></option>';
+        <?php foreach ($_options as $key => $option) : ?>
+            tpl += '<option value="<?php echo $key;?>"><?php echo addslashes($this->escapeHtml($option['title']));?></option>';
+            <?php endforeach; ?>
+            tpl += '</select>';
+            tpl += '</div>';
+            return tpl;
+        },
+        originalImage: null,
+        baseUrl: '<?php echo Mage::getBaseUrl('media');?>'
+    };
+
+    Event.observe(window, 'load', function(e){
+        var container = $('ugc-form-container');//.up(); // id selectors are supposed to be faster than class ones
+        if(container){
+            var tpl = ugoftcertPro.dropDown();
+            container.insert(tpl); // add options dropdown to container
+            $('pers-opts').observe('change', function (e) {
+                var selected = $(this).getValue();
+                var img = $$('.product-image').first().down('img');
+                if (selected == '0') {
+                    $('u_email_template').disable();
+                    $('u_pdf_template').disable();
+                    if (ugoftcertPro.originalImage) {
+                        img.src = ugoftcertPro.originalImage;
+                    }
+                }
+                var option = ugoftcertPro.personalizationOptions.get(selected);
+                if (option) {
+                    $('u_email_template').enable().setValue(option['email_template']);
+                    $('u_pdf_template').enable().setValue(option['pdf_template']);
+                    if (option['url']) {
+                        var src = ugoftcertPro.baseUrl + '/' + option['url'];
+                        if (!ugoftcertPro.originalImage) {
+                            ugoftcertPro.originalImage = img.readAttribute('src');
+                        }
+                        var width = img;
+                        img.src = src;
+                    }
+                }
+            });
+        }
+
+    });
+</script>

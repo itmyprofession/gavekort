@@ -1,0 +1,5 @@
+<?php echo $this->getElement()->getLabelHtml(); ?> <br />
+<?php echo $this->getElementHtml() ?>
+<?php if($this->getElement()->getId()=='ugiftcert_amount_config'): ?>
+	<br/><?php echo $this->getElement()->getNote(); ?><br/>
+<?php endif; ?>
