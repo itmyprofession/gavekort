@@ -1,4 +1,0 @@
-gavekort
-========
-
-Gavekort - Magento
