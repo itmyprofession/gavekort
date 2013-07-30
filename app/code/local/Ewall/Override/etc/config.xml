@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ewall_Override>
-			<version>0.1.10</version>
+			<version>0.1.11</version>
 		</Ewall_Override>
 	</modules>
 	<frontend>
@@ -81,6 +81,11 @@
 					<adminhtml_vendor_edit_tabs>Ewall_Override_Block_Adminhtml_Vendor_Edit_Tabs</adminhtml_vendor_edit_tabs>
 				</rewrite>
 			</udropship>
+			<udropship>
+				<rewrite>
+					<adminhtml_vendor_edit_tab_preferences>Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Preferences</adminhtml_vendor_edit_tab_preferences>
+				</rewrite>
+			</udropship>
 			<ugiftcert>
 				<rewrite>
 					<product_type>Ewall_Override_Block_Product_Type</product_type>
@@ -91,6 +96,11 @@
 					<cart_item>Ewall_Override_Block_Ugiftcert_Cart_Item</cart_item>
 				</rewrite>
 			</ugiftcert>
+			<adminhtml>
+				<rewrite>
+					<catalog_product_edit_tab_inventory>Ewall_Override_Block_Adminhtml_Catalog_Product_Edit_Tab_Inventory</catalog_product_edit_tab_inventory>
+				</rewrite>
+			</adminhtml>
 	   </blocks>
 	   <models>
             <override>
@@ -134,6 +144,11 @@
 					<quote>Ewall_Override_Model_Sales_Quote</quote>
 				</rewrite>
 			</sales>
+			<udropship>
+				<rewrite>
+					<source>Ewall_Override_Model_Dropship_Source</source>
+				</rewrite>
+			</udropship>
        </models>
 	   <resources>
             <override_setup>

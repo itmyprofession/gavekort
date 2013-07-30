@@ -26,7 +26,24 @@ class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtm
                 $hlp->processPostMultiselects($data);
                 $model->addData($data);
                 
-                if(isset($data['links'])){
+                $shipping = array();
+                if ($r->getParam('vendor_shipping')) {
+                    $shipping = Zend_Json::decode($r->getParam('vendor_shipping'));
+                }
+                $model->setPostedShipping($shipping);
+
+                $products = array();
+                if ($r->getParam('vendor_products')) {
+                    $products = Zend_Json::decode($r->getParam('vendor_products'));
+                }
+                $model->setPostedProducts($products);
+
+                Mage::getSingleton('adminhtml/session')->setData('uvendor_edit_data', $model->getData());
+                $model->save();
+                if(!$id){
+					$id = $model->load($v_email,'email')->getVendorId();
+				}
+                if(isset($data['links'])&&$id){
 					$dmethods = Mage::helper('adminhtml/js')->decodeGridSerializedInput($data['links']['deliverymethods']); //Save the array to your database
 
 					$collection = Mage::getModel('override/vendordelivery')->getCollection();
@@ -42,21 +59,6 @@ class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtm
 						$model2->save();
 					}
 				}
-
-                $shipping = array();
-                if ($r->getParam('vendor_shipping')) {
-                    $shipping = Zend_Json::decode($r->getParam('vendor_shipping'));
-                }
-                $model->setPostedShipping($shipping);
-
-                $products = array();
-                if ($r->getParam('vendor_products')) {
-                    $products = Zend_Json::decode($r->getParam('vendor_products'));
-                }
-                $model->setPostedProducts($products);
-
-                Mage::getSingleton('adminhtml/session')->setData('uvendor_edit_data', $model->getData());
-                $model->save();
                 Mage::getSingleton('adminhtml/session')->unsetData('uvendor_edit_data');
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($hlp->__('Vendor was successfully saved'));

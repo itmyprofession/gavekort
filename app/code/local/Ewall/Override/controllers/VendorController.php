@@ -50,6 +50,7 @@ class Ewall_Override_VendorController extends Unirgy_Dropship_VendorController
                     $v->setData($code, $param);
                     $v->setData('vendor_timed_dispatch',$this->getRequest()->getPost('vendor_timed_dispatch'));
                     $v->setData('vendor_timed_dispatch_no',$this->getRequest()->getPost('vendor_timed_dispatch_no'));
+                    $v->setData('vendor_api_url',$this->getRequest()->getPost('vendor_api_url'));
                     
                     if(isset($p['methods'])){
 						for($kl=0;$kl<count($p['methods']['delivery_id']);$kl++){

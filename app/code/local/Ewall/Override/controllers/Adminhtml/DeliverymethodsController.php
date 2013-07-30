@@ -53,9 +53,9 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 		$this->_title($this->__("New Item"));
 
         $id   = $this->getRequest()->getParam("id");
+        $data = Mage::getSingleton("adminhtml/session")->getFormData(true);
 		$model  = Mage::getModel("override/deliverymethods")->load($id);
-
-		$data = Mage::getSingleton("adminhtml/session")->getFormData(true);
+			
 		if (!empty($data)) {
 			$model->setData($data);
 		}
@@ -88,6 +88,14 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 
 						
 					$post_data['methods']=$post_data['methods'];
+						$id = $this->getRequest()->getParam("id");
+		
+						if($id && ($post_data['status']==0)){
+							$v_delivery = Mage::getModel("override/vendordelivery")->getCollection()->addFieldToFilter('delivery_id',$id);
+							foreach($v_delivery as $obj){
+								$obj->delete();
+							}
+						}
 
 						$model = Mage::getModel("override/deliverymethods")
 						->addData($post_data)

@@ -50,7 +50,7 @@ class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Delivery extends Mage_Admin
 		if(!isset($tm_id)) {
 			$tm_id = 0;
 		}
-        $collection = Mage::getResourceModel('override/deliverymethods_collection');
+        $collection = Mage::getResourceModel('override/deliverymethods_collection')->addFieldToFilter('status',1);
         $this->setCollection($collection);
 	
         return parent::_prepareCollection();
