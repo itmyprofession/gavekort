@@ -24,6 +24,7 @@
                 <active>1</active>
                 <model>gavekortship/carrier_gavekortno</model>
                 <name>Gavekort.no Shipping Method</name>
+                <price>0</price>
                 <title>Gavekort.no Shipping Method</title>
                 <description>Gavekort.no Shipping Method</description>
                 <sort_order>100</sort_order>
