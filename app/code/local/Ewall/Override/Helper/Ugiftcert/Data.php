@@ -2,6 +2,13 @@
 
 class Ewall_Override_Helper_Ugiftcert_Data extends Unirgy_Giftcert_Helper_Data
 {
+	
+	/**
+	 * Show delivery type in cart line items
+	 * 
+	 * @param array $result
+	 * @param Mage_Sales_Model_Quote_Item $item
+	 */
 	public function addOrderItemCertOptions(&$result, $item)
     {
         if ($item->getProductType() !== 'ugiftcert') {
@@ -29,7 +36,7 @@ class Ewall_Override_Helper_Ugiftcert_Data extends Unirgy_Giftcert_Helper_Data
                         $value = $deliveryName.' ('.Mage::helper('core')->currency($price, true, false).')';
                     }
                     $result[] = array(
-                        'label'        => $label,
+                        'label'        => Mage::helper('override')->__($label),
                         'value'        => $value,
                         'option_value' => $value,
                     );
@@ -46,7 +53,7 @@ class Ewall_Override_Helper_Ugiftcert_Data extends Unirgy_Giftcert_Helper_Data
                 }
                 $gcsStr   = join("\n", $gcs);
                 $result[] = array(
-                    'label'        => $this->__('Certificate number(s)'),
+                    'label'        => Mage::helper('override')->__('Certificate number(s)'),
                     'value'        => $gcsStr,
                     'option_value' => $gcsStr,
                 );

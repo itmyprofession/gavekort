@@ -51,6 +51,7 @@ class Ewall_Override_VendorController extends Unirgy_Dropship_VendorController
                     $v->setData('vendor_timed_dispatch',$this->getRequest()->getPost('vendor_timed_dispatch'));
                     $v->setData('vendor_timed_dispatch_no',$this->getRequest()->getPost('vendor_timed_dispatch_no'));
                     $v->setData('vendor_api_url',$this->getRequest()->getPost('vendor_api_url'));
+                    $v->setData('create_per_item_shipment',$this->getRequest()->getPost('create_per_item_shipment'));
                     
                     if(isset($p['methods'])){
 						for($kl=0;$kl<count($p['methods']['delivery_id']);$kl++){
@@ -75,7 +76,7 @@ class Ewall_Override_VendorController extends Unirgy_Dropship_VendorController
                 }
                 Mage::dispatchEvent('udropship_vendor_preferences_save_before', array('vendor'=>$v, 'post_data'=>&$p));
                 $v->save();
-                $session->addSuccess('Settings has been saved');
+                $session->addSuccess(Mage::helper('override')->__('Settings has been saved'));
             } catch (Exception $e) {
                 $session->addError($e->getMessage());
             }

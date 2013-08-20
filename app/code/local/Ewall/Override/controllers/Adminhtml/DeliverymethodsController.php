@@ -205,7 +205,7 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 				} else {
 					$selected = '';
 				}
-				$options .= '<option '.$selected.' value="'.$deliver_method->getDeliveryId().'">'.$deliver_method->getTitle().'</option>';
+				$options .= '<option '.$selected.' value="'.$deliver_method->getDeliveryId().'">'.Mage::helper('override')->__($deliver_method->getTitle()).'</option>';
 			}
 			echo $options;
 		}

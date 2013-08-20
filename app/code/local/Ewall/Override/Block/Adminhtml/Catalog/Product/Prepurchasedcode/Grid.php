@@ -33,7 +33,7 @@ class Ewall_Override_Block_Adminhtml_Catalog_Product_Prepurchasedcode_Grid exten
 			"header" => Mage::helper("override")->__("Usage"),
 			"index" => "used",
 			"type" => "options",
-			"options" => array(0 => "Unused", 1 => "Used")
+			"options" => Ewall_Override_Block_Adminhtml_Catalog_Product_Prepurchasedcode_Grid::getOptionArray(),
 		));
 
 		return parent::_prepareColumns();
@@ -47,5 +47,22 @@ class Ewall_Override_Block_Adminhtml_Catalog_Product_Prepurchasedcode_Grid exten
 	public function getGridUrl()
 	{
 		return Mage::helper("adminhtml")->getUrl("override/adminhtml_deliverymethods/prepurchasedgrid");
+	}
+	
+	static public function getOptionArray()
+	{
+		$data_array=array(); 
+		$data_array[0]=	Mage::helper('override')->__('Unused');
+		$data_array[1]= Mage::helper('override')->__('Used');
+		return($data_array);
+	}
+	
+	static public function getValueArray()
+	{
+		$data_array=array();
+		foreach(Ewall_Override_Block_Adminhtml_Catalog_Product_Prepurchasedcode_Grid::getOptionArray() as $k=>$v){
+		   $data_array[]=array('value'=>$k,'label'=>$v);		
+		}
+		return($data_array);
 	}
 }
