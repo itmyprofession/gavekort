@@ -2,6 +2,11 @@
 
 class Ewall_Override_Model_Giftcert_Product_TypeCE150 extends Unirgy_GiftCert_Model_Product_TypeCE150
 {
+	/** Check whether product is virtual or not and return false if quote item is ugiftcert product
+	 * 
+	 * @param Mage_Catalog_Model_Product|null $product
+	 * @return boolean true|false
+	 */
 	public function isVirtual($product = null)
     {
         if (is_null($product)) {

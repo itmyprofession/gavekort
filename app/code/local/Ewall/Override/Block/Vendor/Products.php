@@ -2,6 +2,13 @@
 
 class Ewall_Override_Block_Vendor_Products extends Unirgy_DropshipVendorProduct_Block_Vendor_Products
 {
+	/**
+     * Get current vendor product collection
+     * 
+     * 
+     * @return array
+     */
+	
 	public function getProductCollection()
     {
         if (!$this->_collection) {

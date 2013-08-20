@@ -2,6 +2,10 @@
 
 class Ewall_Override_Model_Sales_Quote extends Mage_Sales_Model_Quote
 {
+	/** Check quote item is virtual or not and return false if quote item is ugiftcert product
+	 * 
+	 * @return boolean true|false
+	 */
     public function isVirtual()
     {
 		$isVirtual = true;

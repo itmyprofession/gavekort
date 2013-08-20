@@ -2,7 +2,11 @@
 
 class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tabs extends Unirgy_Dropship_Block_Adminhtml_Vendor_Edit_Tabs
 {
-
+	/**
+     * Add additional tab in the vendor section
+     *
+     * 
+     */
     protected function _beforeToHtml()
     {
         $id = Mage::app()->getRequest()->getParam('id', 0);

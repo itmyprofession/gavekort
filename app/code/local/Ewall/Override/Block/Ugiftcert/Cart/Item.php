@@ -2,6 +2,13 @@
 
 class Ewall_Override_Block_Ugiftcert_Cart_Item extends Mage_Checkout_Block_Cart_Item_Renderer
 {
+    /**
+     * Get the delivery methods option for product section
+     * 
+     * 
+     * @return array
+     */
+    
     public function getProductOptions()
     {
         $options = parent::getProductOptions();
@@ -42,6 +49,13 @@ class Ewall_Override_Block_Ugiftcert_Cart_Item extends Mage_Checkout_Block_Cart_
         }
         return $options;
     }
+    
+    /**
+     * check the labels to hide the cart line items and order review items section
+     * 
+     * 
+     * @return boolian
+     */
     
     public function getLabelCheck($label){
 		if($label!='Sender Name' && $label!='Sender Email' && $label!='Sender Address' ){

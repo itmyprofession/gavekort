@@ -1,9 +1,18 @@
 <?php
 class Ewall_Override_Model_Deliverymethods_Source extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+	/**
+     * Get delivery methods
+     *
+     * @return array
+     */
 	public function getAllOptions()
     {
 		$delivery = Mage::getModel("override/deliverymethods")->getCollection()->addFieldToFilter('status', array('eq' => 1));
+		
+		/**
+		 * If current page is vendor product edit/new, filter the current vendor
+		 */
 		if(Mage::app()->getRequest()->getControllerName()=='vendor' && (Mage::app()->getRequest()->getActionName()=='productEdit' || Mage::app()->getRequest()->getActionName()=='productNew')) {
 			$vendor_id = Mage::getSingleton('udropship/session')->getVendor()->getId();
 			$deliverymethods = Mage::getModel("override/vendordelivery")->getCollection();
