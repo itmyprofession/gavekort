@@ -1,24 +1,19 @@
 <?php
 class Ewall_Remove_Block_Onepage extends Mage_Checkout_Block_Onepage
 {
+	/**
+     * Get 'one step checkout' step data
+     * Remove shipping and shipping method
+     * 
+     * @return array
+     */
 	public function getSteps()
 	{
-		$steps = array();
-
-		if (!$this->isCustomerLoggedIn()) {
-			$steps['login'] = $this->getCheckout()->getStepData('login');
-		}
-
-		$stepCodes = array('billing', 'payment', 'review');
-
-		foreach ($stepCodes as $step) {
-			$steps[$step] = $this->getCheckout()->getStepData($step);
+		$steps = parent::getSteps();
+		$noneed = array('shipping','shipping_method');
+		foreach($noneed as $remove) {
+			unset($steps[$remove]);
 		}
 		return $steps;
-	}
-
-	public function getActiveStep()
-	{
-		return $this->isCustomerLoggedIn() ? 'billing' : 'login';
 	}
 }
