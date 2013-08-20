@@ -8,6 +8,9 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/shipment/copy_method';
     const XML_PATH_EMAIL_ENABLED                = 'sales_email/shipment/enabled';
 	
+	/**
+	 * Send shipment notification email based on VendorTimedDispatchNo of Vendor
+	 */
 	public function sendShipmentNotificationEmail()
 	{
 		if (Mage::helper('udropship')->isSalesFlat()) {
@@ -70,6 +73,13 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 	}
 	
+	/**
+	 * Send shipment notification email to vendor
+	 *
+	 * @param Mage_Sales_Model_Shipment $shipment 
+	 * @param boolean $notifyCustomer
+	 * @return Mage_Sales_Model_Shipment $shipment
+	 */
 	public function sendNotificationEmail($shipment, $notifyCustomer = true)
 	{
 		$order = $shipment->getOrder();
@@ -168,27 +178,13 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return false;
     }
-    
-    public function ugiftcert_cert_create_from_order($observer)
-    {
-		$cert = $observer->getCert();
-		$order_item = $observer->getOrderItem();
-		$item = Mage::getModel('sales/order_item')->load($order_item->getId());
-		$product_id = $item->getData('product_id');
-		$product_type = $item->getData('product_type');
-		if($product_type=='ugiftcert') {
-			$item->setIsVirtual(0)->save();
-		}
-		$vendorprepurchased = Mage::getModel('override/vendorprepurchased')->getCollection()->addFieldToFilter('used',0)->addFieldToFilter('pid',$product_id);
-		if($vendorprepurchased->count()>0) {
-			foreach($vendorprepurchased as $codes) {
-				$cert->setCertNumber($codes->getCode());
-				$codes->setUsed(1)->save();
-				break;
-			}
-		}
-	}
 	
+	/**
+	 * Check whether product type is ugiftcert or not
+	 * 
+	 * @param Mage_Catalog_Model_Product $product
+	 * @param boolean $set_id
+	 */
 	public function checkProduct($_product, $set_id = false)
 	{
 		if ($_product->getId()) {
@@ -220,6 +216,9 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 		return $goAhead;
 	}
 	
+	/**
+	 * Get balance check url to customer
+	 */
 	public function getBalanceCheckUrl(){
 		return Mage::getUrl('ugiftcert/customer/balance/');
 	}
