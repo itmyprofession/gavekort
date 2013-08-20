@@ -2,6 +2,14 @@
 
 class Ewall_Override_Block_Vendor_Product_Grid extends Unirgy_Dropship_Block_Vendor_Product_Grid
 {
+    
+    /**
+     * Get vendor product collection for Grid view
+     * 
+     * 
+     * @return array
+     */
+     
     public function getProductCollection()
     {
         if (!$this->_collection) {

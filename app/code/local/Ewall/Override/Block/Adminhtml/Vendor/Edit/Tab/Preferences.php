@@ -113,7 +113,15 @@ class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Preferences extends Unirgy_
             'label'     => $hlp->__('Vendor API URL'),
             'note'		=> $hlp->__('Order details will be sent to this URL for shipment creation and status change of shipment'),
         ));
-
+		$create_per_item_shipment = $form->addFieldset('create_per_item_shipments', array(
+            'legend'=>$hlp->__('Shipment Information')
+        ));
+        $create_per_item_shipment->addField('create_per_item_shipment', 'select', array(
+            'name'      => 'create_per_item_shipment',
+            'label'     => $hlp->__('Support Detailed Shipment'),
+            'note'		=> $hlp->__('Select \'Yes\' to support detailed shipment'),
+            'values' => array(array('value'=>0,'label'=>'No'),array('value'=>1,'label'=>'Yes')),
+        ));
         uasort($fieldsets, array($hlp, 'usortByPosition'));
         foreach ($fieldsets as $k=>$v) {
             if (empty($v['fields'])) {

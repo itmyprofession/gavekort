@@ -8,6 +8,10 @@ class Ewall_Remove_OnepageController extends Mage_Checkout_OnepageController
     'review' => '_getReviewHtml',
 	);
 	
+	/**
+     * Save checkout billing address
+     * Set gavekortno_gavekortno as shipping method and set payment as goto_section
+     */
 	public function saveBillingAction()
 	{
 		if ($this->_expireAjax()) {
@@ -33,6 +37,7 @@ class Ewall_Remove_OnepageController extends Mage_Checkout_OnepageController
 
 				if (!isset($result['error'])) {
 
+					/* check quote for virtual */
 					if ($this->getOnepage()->getQuote()->isVirtual()) {
 						$result['goto_section'] = 'payment';
 						$result['update_section'] = array(
@@ -49,6 +54,10 @@ class Ewall_Remove_OnepageController extends Mage_Checkout_OnepageController
 		}
 	}
 
+	/**
+     * Shipping address save action
+     * Set shipping method as gavekortno_gavekortno and goto payment section
+     */
 	public function saveShippingAction()
 	{
 		if ($this->_expireAjax()) {

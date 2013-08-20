@@ -17,10 +17,21 @@
 
 class Ewall_Override_Model_Dropship_Source extends Unirgy_Dropship_Model_Source
 {
+	/**
+     * Get all vendors
+     *
+     * @param boolean $includeInactive
+     * @param string $field
+     * @return array
+     */
     protected function _getVendors($includeInactive=false, $field='vendor_name')
     {
 		$request = Mage::app()->getRequest();
 		$params = $request->getParams();
+		
+		/**
+		 * If creating new product or editing existing product return only local vendor if product attribute set is Pre Purchased GC or System GC
+		 */
 		if($request->getControllerName()=='catalog_product' &&  ($request->getActionName()=='new' || $request->getActionName()=='edit')) {
 			if(isset($params['id'])) {
 				$product = Mage::getModel('catalog/product')->load($params['id']);

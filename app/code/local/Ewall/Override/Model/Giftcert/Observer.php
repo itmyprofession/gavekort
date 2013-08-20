@@ -3,6 +3,13 @@
 class Ewall_Override_Model_Giftcert_Observer extends Unirgy_Giftcert_Model_Observer
 {
 
+	/**
+	 * Add GC's and disabled auto shipment status change
+	 * 
+	 * @param Mage_Sales_Model_Order $order
+	 * @param array $data
+	 * @param integer|null $storeId
+	 */
     protected function _addGcs($order, $data, $storeId = null)
     {
         if (null === $storeId) {
@@ -99,6 +106,11 @@ class Ewall_Override_Model_Giftcert_Observer extends Unirgy_Giftcert_Model_Obser
         }
     }
 
+	/**
+	 * Change GC's status and disabled auto shipment status change
+	 * 
+	 * @param   Varien_Event_Observer $observer
+	 */
     public function sales_order_invoice_pay($observer)
     {
         $invoice = $observer->getEvent()->getInvoice();

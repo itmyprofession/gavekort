@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ewall_Override>
-			<version>0.1.11</version>
+			<version>0.1.12</version>
 		</Ewall_Override>
 	</modules>
 	<frontend>
@@ -41,9 +41,9 @@
 				</rewrite>
             </udprod>
             <udropship>
-				<rewrite>
-					<data>Ewall_Override_Helper_ShipmentCollection</data>
-				</rewrite>
+					<rewrite>
+						<protected>Ewall_Override_Helper_Dropship_Protected</protected>
+					</rewrite>
             </udropship>
             <ugiftcert>
 				<rewrite>

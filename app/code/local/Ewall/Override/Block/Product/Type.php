@@ -2,10 +2,23 @@
 
 class Ewall_Override_Block_Product_Type extends Unirgy_Giftcert_Block_Product_Type
 {
-	public function getDeliveryCollection($deliverid){
+	/**
+     * Get selected Delivery methods  
+     * 
+     * @param delivery methods id value in array format $id
+     * @return array
+     */
+     public function getDeliveryCollection($deliverid){
 		$collection = Mage::getModel('override/deliverymethods')->getCollection()->addFieldToFilter('delivery_id',array('in',$deliverid));
 		return $collection;
 	}
+	
+	/**
+     * Get selected Delivery method price for vendors section 
+     * 
+     * @param delivery methods id value in array format $collect and vendor id $vendor_id
+     * @return price
+     */
 	public function getDeliveryUpdatedPrice($collect,$vendor_id){
 		
 		$vendordelivery = Mage::getModel('override/vendordelivery')->getCollection()->AddFieldToFilter('delivery_id',$collect)->addFieldToFilter('vendor_id',$vendor_id);
@@ -15,10 +28,24 @@ class Ewall_Override_Block_Product_Type extends Unirgy_Giftcert_Block_Product_Ty
 		return $price;
 	}
 	
+	/**
+     * Get selected Delivery method price for product section 
+     * 
+     * @param delivery methods id value in array format $collect and vendor id $vendor_id
+     * @return price
+     */
+	
 	public function getDeliveryOptions($collect,$vendor_id){
 		$d_price = $this->getDeliveryUpdatedPrice($collect->getDeliveryId(),$vendor_id);
 		return $this->__($collect->getTitle().' ( '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().round($d_price,2).' )');
 	}
+	
+	/**
+     * Get delivery method id from quote item 
+     * 
+     * 
+     * @return id 
+     */
 	
 	public function getDelivery(){
 		

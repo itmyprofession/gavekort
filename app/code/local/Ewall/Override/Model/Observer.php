@@ -1,9 +1,18 @@
 <?php
 class Ewall_Override_Model_Observer extends Varien_Object
 {
+	/**
+	 * Send shipment notification email based on VendorTimedDispatchNo of Vendor
+	*/
 	public function sendShipmentNotification(){
 		Mage::helper('override')->sendShipmentNotificationEmail();
 	}
+	
+	/**
+	 * Set delivery methods to products
+	 * 
+	 * @params $observer
+	*/
 	public function catalog_product_prepare_save($observer)
 	{
 		$product = $observer->getProduct();
@@ -16,6 +25,12 @@ class Ewall_Override_Model_Observer extends Varien_Object
 		$vendorproducts->setVendorId($product->getUdropshipVendor());
 		$vendorproducts->save();
 	}
+	
+	/**
+	 * Set delivery methods to product collection
+	 * 
+	 * @params $observer
+	*/
 	public function catalog_product_collection_load_after($observer)
 	{
 		$productCollection = $observer->getEvent()->getCollection();
@@ -25,6 +40,12 @@ class Ewall_Override_Model_Observer extends Varien_Object
 			$product->setDeliveryMethod($vendorproducts->getDeliveryIds());
 		}
 	}
+	
+	/**
+	 * Set delivery methods to product
+	 * 
+	 * @params $observer
+	*/
 	public function catalog_product_load_after($observer)
     {
         $product = $observer->getProduct();
@@ -32,10 +53,18 @@ class Ewall_Override_Model_Observer extends Varien_Object
         $product->setDeliveryMethod($vendorproducts->getDeliveryIds());
     }
     
+    /**
+	 * Set delivery methods to quote items
+	 * 
+	 * @params $observer
+	*/
     public function setProductInfo($observer){
 		$event = $observer->getEvent();
         $quoteItem = $event->getQuoteItem();
         $product = $event->getProduct()->getData('udropship_vendor');
+        $type = $event->getProduct()->getData('type_id');
+        if($type!='ugiftcert')
+			return;
 		$action = Mage::app()->getFrontController()->getAction();
 		if ($action->getFullActionName() == 'sales_order_reorder' || $action->getFullActionName() == 'checkout_cart_addgroup')
 		{
@@ -59,16 +88,28 @@ class Ewall_Override_Model_Observer extends Varien_Object
 		}
 		$quoteItem->setVendorDeliveryId($p_d_i)->setCustomPrice($price)->setOriginalCustomPrice($price);
 	}
-		
-	public function salesOrderShipmentSaveAfter(Varien_Event_Observer $observer){
+	
+	/**
+	 * Shipment status
+	 * 
+	 * @params $observer
+	*/	
+	public function salesOrderShipmentSaveAfter(Varien_Event_Observer $observer)
+	{
 		$shipment = $observer->getEvent()->getShipment();
-        $order = $shipment->getOrder();
-        $items = $order->getAllItems();
+		$order = $shipment->getOrder();
+		$items = $order->getAllItems();
         foreach($items as $item){
 			$item->setQtyShipped($item->getQtyOrdered())->save();
 		}
+		
 	}
 	
+	/**
+	 * Save purchased code to products
+	 * 
+	 * @params $observer
+	*/
 	public function savePrepurchasedTabData(Varien_Event_Observer $observer){
 		 $product = $observer->getProduct();
 		 $pid = $product->getId();
@@ -121,17 +162,47 @@ class Ewall_Override_Model_Observer extends Varien_Object
 		}
 	}
 	
+	/**
+	 * Create GC from prepurchased code
+	 * 
+	 * @params $observer
+	*/
 	public function ugiftcert_cert_create_from_order($observer)
 	{
-		Mage::helper('override')->ugiftcert_cert_create_from_order($observer);
+		$cert = $observer->getCert();
+		$order_item = $observer->getOrderItem();
+		$item = Mage::getModel('sales/order_item')->load($order_item->getId());
+		$product_id = $item->getData('product_id');
+		$product_type = $item->getData('product_type');
+		if($product_type=='ugiftcert') {
+			$item->setIsVirtual(0)->save();
+		}
+		$vendorprepurchased = Mage::getModel('override/vendorprepurchased')->getCollection()->addFieldToFilter('used',0)->addFieldToFilter('pid',$product_id);
+		if($vendorprepurchased->count()>0) {
+			foreach($vendorprepurchased as $codes) {
+				$cert->setCertNumber($codes->getCode());
+				$codes->setUsed(1)->save();
+				break;
+			}
+		}
 	}
 	
+	/**
+	 * Delete prepurchased code while deleting GC's
+	 * 
+	 * @params $observer
+	*/
 	public function controller_action_predispatch_ugiftcertadmin_adminhtml_cert_delete($observer)
 	{
 		$id = Mage::app()->getRequest()->getParam('id');
 		$this->deleteit($id);
 	}
 	
+	/**
+	 * Delete prepurchased code while deleting GC's
+	 * 
+	 * @params $observer
+	*/
 	public function controller_action_predispatch_ugiftcertadmin_adminhtml_cert_massdelete($observer)
 	{
 		$ids = Mage::app()->getRequest()->getParam('cert');
@@ -140,6 +211,11 @@ class Ewall_Override_Model_Observer extends Varien_Object
 		}
 	}
 	
+	/**
+	 * Delete prepurchased code while deleting GC's
+	 * 
+	 * @params $observer
+	*/
 	public function deleteit($id)
 	{
 		$gift = Mage::getModel('ugiftcert/cert')->load($id);
@@ -148,4 +224,5 @@ class Ewall_Override_Model_Observer extends Varien_Object
 			$prepurchasedcode->delete();
 		}
 	}
+	
 }
