@@ -4,6 +4,11 @@
 		<Ewall_Override>
 			<active>true</active>
 			<codePool>local</codePool>
+			<depends>
+                <Unirgy_Dropship />
+                <Unirgy_DropshipVendorProduct />
+                <Unirgy_Giftcert />
+            </depends>
 		</Ewall_Override>
 	</modules>
 </config>
