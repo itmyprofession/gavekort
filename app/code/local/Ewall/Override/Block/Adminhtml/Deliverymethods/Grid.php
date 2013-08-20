@@ -68,8 +68,8 @@ class Ewall_Override_Block_Adminhtml_Deliverymethods_Grid extends Mage_Adminhtml
 	static public function getOptionArray2()
 	{
 		$data_array=array(); 
-		$data_array[1]='Enabled';
-		$data_array[0]='Disabled';
+		$data_array[1]= Mage::helper('override')->__('Enabled');
+		$data_array[0]= Mage::helper('override')->__('Disabled');
 		return($data_array);
 	}
 	
@@ -86,8 +86,8 @@ class Ewall_Override_Block_Adminhtml_Deliverymethods_Grid extends Mage_Adminhtml
 	static public function getOptionArray3()
 	{
 		$data_array=array(); 
-		$data_array[0]='Email';
-		$data_array[1]='Snail Mail';
+		$data_array[0]=	Mage::helper('override')->__('Email');
+		$data_array[1]= Mage::helper('override')->__('Snail Mail');
 		return($data_array);
 	}
 	
