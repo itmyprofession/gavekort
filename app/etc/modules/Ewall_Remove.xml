@@ -4,6 +4,9 @@
         <Ewall_Remove>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Ewall_GavekortShip/>
+            </depends>
         </Ewall_Remove>
     </modules>
 </config> 
