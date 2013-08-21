@@ -4,7 +4,11 @@
 
 class Ewall_Override_VendorController extends Unirgy_Dropship_VendorController
 {
-
+	/**
+     * Set delivery methods , vendor_timed_dispatch , vendor_timed_dispatch_no , vendor_api_url , create_per_item_shipment values  for vendors
+     * 
+     * 
+     */
     public function preferencesPostAction()
     {
         $defaultAllowedTags = Mage::getStoreConfig('udropship/vendor/preferences_allowed_tags');
@@ -84,6 +88,11 @@ class Ewall_Override_VendorController extends Unirgy_Dropship_VendorController
         $this->_redirect('udropship/vendor/preferences');
     }
     
+    /**
+     * Shipment information action
+     * 
+     * 
+     */    
     public function shipmentInfoAction()
     {
         $this->_setTheme();

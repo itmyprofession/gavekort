@@ -2,6 +2,10 @@
 
 class Ewall_Override_Block_Adminhtml_Deliverymethods extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+	/**
+	 * Delivery methods block
+	 *
+	 */
 	public function __construct()
 	{
 		$this->_controller = "adminhtml_deliverymethods";

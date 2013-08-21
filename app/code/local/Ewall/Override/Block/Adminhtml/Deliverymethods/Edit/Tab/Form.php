@@ -2,6 +2,11 @@
 
 class Ewall_Override_Block_Adminhtml_Deliverymethods_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+	
+	/**
+	 * Delivery methods block form section(fields)
+	 *
+	 */
 	protected function _prepareForm()
 	{
 		$form = new Varien_Data_Form();

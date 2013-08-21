@@ -107,10 +107,10 @@ class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Delivery extends Mage_Admin
         return $this->getUrl('*/*/deliveryGrid', array('_current'=>true));
     }
    
-    protected function _getSelectedMethods()   // Used in grid to return selected customers values.
+    protected function _getSelectedMethods()   // Used in grid to return selected delivery method values.
 	{
-		$customers = array_keys($this->getSelectedMethods());
-		return $customers;
+		$methods = array_keys($this->getSelectedMethods());
+		return $methods;
 	}
 	public function getSelectedMethods()
 	{

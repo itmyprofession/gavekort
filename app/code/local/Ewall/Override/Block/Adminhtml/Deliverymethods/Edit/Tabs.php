@@ -2,6 +2,10 @@
 
 class Ewall_Override_Block_Adminhtml_Deliverymethods_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+	/**
+	 * Delivery methods block tab section
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct();
