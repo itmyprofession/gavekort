@@ -15,12 +15,24 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 				$this->_initAction();
 				$this->renderLayout();
 		}
+		
+		/**
+		 * Pre Purchased code grid section in product edit section
+		 * 
+		 * 
+		 */
 		public function prepurchasedgridAction()
 		{
 			$this->getResponse()->setBody(
 				$this->getLayout()->createBlock('override/adminhtml_catalog_product_prepurchasedcode_grid')->toHtml()
 			);
 		}
+		
+		/**
+		 * Delivery methods edit section
+		 *  
+		 * 
+		 */
 		public function editAction()
 		{			    
 			    $this->_title($this->__("Override"));
@@ -45,6 +57,11 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 				}
 		}
 
+		/**
+		 * Add new Delivery methods section
+		 * 
+		 * 
+		 */
 		public function newAction()
 		{
 
@@ -76,6 +93,12 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 		$this->renderLayout();
 
 		}
+		
+		/**
+		 * Delivery methods save section
+		 * 
+		 * 
+		 */
 		public function saveAction()
 		{
 
@@ -124,7 +147,9 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 		}
 
 
-
+		/**
+		 * Delete action
+		 */
 		public function deleteAction()
 		{
 				if( $this->getRequest()->getParam("id") > 0 ) {
@@ -142,7 +167,9 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 				$this->_redirect("*/*/");
 		}
 
-		
+		/**
+		 * Mass Delete action
+		 */
 		public function massRemoveAction()
 		{
 			try {
@@ -177,6 +204,12 @@ class Ewall_Override_Adminhtml_DeliverymethodsController extends Mage_Adminhtml_
 			$grid       = $this->getLayout()->createBlock('override/adminhtml_deliverymethods_grid');
 			$this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
 		}
+		
+		/**
+		 * Delivery methods action in product edit section
+		 * 
+		 * 
+		 */
 		
 		public function getdeliverymethodsAction()
 		{

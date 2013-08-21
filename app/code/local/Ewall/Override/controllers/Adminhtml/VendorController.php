@@ -4,7 +4,12 @@ require_once "app/code/community/Unirgy/Dropship/controllers/Adminhtml/VendorCon
 
 class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtml_VendorController
 {
-
+	
+	/**
+     * Save delivery methods for vendors in the admin section
+     * 
+     * 
+     */
     public function saveAction()
     {
       
@@ -100,6 +105,11 @@ class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtm
         $this->_redirect('*/*/');
     }
     
+    /**
+     * Delivery methods action in vendor edit section (left menus)
+     * 
+     * 
+     */
     public function deliveryAction()
 	{
 		$this->loadLayout();
@@ -107,7 +117,12 @@ class Ewall_Override_Adminhtml_VendorController extends Unirgy_Dropship_Adminhtm
 		->setDeliverymethods($this->getRequest()->getPost('deliverymethods', null));
 		$this->renderLayout();
 	}
-	
+
+	/**
+     * Delivery methods grid action in vendor edit section (left menus)
+     * 
+     * 
+     */
 	public function deliveryGridAction()
 	{
 		

@@ -2,6 +2,10 @@
 
 class Ewall_Override_Block_Adminhtml_Catalog_Product_Prepurchasedcode_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+	/**
+	 * Prepurchased code block in the product edit section
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct();

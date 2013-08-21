@@ -40,11 +40,6 @@
 					<data>Ewall_Override_Helper_ProductEdit</data>
 				</rewrite>
             </udprod>
-            <udropship>
-					<rewrite>
-						<protected>Ewall_Override_Helper_Dropship_Protected</protected>
-					</rewrite>
-            </udropship>
             <ugiftcert>
 				<rewrite>
 					<data>Ewall_Override_Helper_Ugiftcert_Data</data>

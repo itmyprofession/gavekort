@@ -2,6 +2,10 @@
 
 class Ewall_Override_Block_Adminhtml_Catalog_Product_Edit_Tab_Inventory extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory
 {
+    /**
+	* Add additional tab for only Gift and Pre Purchased GC products 
+	*
+	*/
     public function __construct()
     {
         parent::__construct();

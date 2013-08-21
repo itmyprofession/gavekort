@@ -29,11 +29,19 @@ class Ewall_Override_DropshipVendorProduct_VendorController extends Unirgy_Drops
         $session->setUdprodLastGridUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
         $this->_renderPage(null, 'udprod');
     }
+    
+    /**
+	 * check products for edit purpose
+	 */
     protected function _checkProduct($productId=null)
     {
         Mage::helper('udprod')->checkProduct($productId);
         return $this;
     }
+    
+    /**
+	 * Product edit section 
+	 */
     public function productEditAction()
     {
         $session = Mage::getSingleton('udropship/session');
@@ -53,6 +61,10 @@ class Ewall_Override_DropshipVendorProduct_VendorController extends Unirgy_Drops
             $this->_redirectAfterPost();
         }
     }
+    
+    /**
+	 * Product add section 
+	 */
     public function productNewAction()
     {
         $session = Mage::getSingleton('udropship/session');
@@ -68,6 +80,10 @@ class Ewall_Override_DropshipVendorProduct_VendorController extends Unirgy_Drops
             $this->_redirectAfterPost();
         }
     }
+    
+    /**
+	 * Product save section 
+	 */
     public function productPostAction()
     {
         $session = Mage::getSingleton('udropship/session');

@@ -2,11 +2,20 @@
 
 class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+	 * Delayed / Timed Shipping Block
+	 *
+	 */
     public function __construct()
     {
         parent::__construct();
         $this->setDestElementId('vendor_form');
     }
+    
+    /**
+	 * Fieldsets for Delayed / Timed Shipping Bock
+	 *
+	 */
     
     protected function _prepareForm()
     {
