@@ -102,7 +102,82 @@ class Ewall_Override_Model_Observer extends Varien_Object
         foreach($items as $item){
 			$item->setQtyShipped($item->getQtyOrdered())->save();
 		}
-		
+		$this->setShipmentDetails($shipment);
+	}
+	
+	/**
+	 * Add comment to shipment
+	 * 
+	 * @params $observer
+	*/
+	public function controller_action_predispatch_udropshipadmin_adminhtml_shipment_addComment($observer)
+	{
+		$shipment_id = Mage::app()->getRequest()->getParam('shipment_id');
+		if(!$shipment_id)
+			return;
+		$shipment = Mage::getModel('sales/order_shipment')->load($shipment_id);
+		if($shipment->getId())
+			$this->setShipmentDetails($shipment);
+	}
+	
+	/**
+	 * Send shipment details to vendor api
+	 * 
+	 * @params $shipment
+	*/
+	protected function setShipmentDetails($shipment)
+	{
+		$order = $shipment->getOrder();
+		$vendor = Mage::getModel('udropship/vendor')->load($shipment->getData('udropship_vendor'));
+		$apiForm = $vendor->getData('vendor_api_form_value');
+		$apiName = $vendor->getData('vendor_api_shortname');
+		if($apiForm && $apiName) {
+
+			$serviceApi = Mage::getBaseDir('base').DS.Mage::getStoreConfig('udropship/vendor_api_config/path').$apiName.'.php';
+			
+			if(!file_exists($serviceApi))
+				return;
+			require_once($serviceApi);
+			
+			foreach($shipment->getItemsCollection() as $item) {
+				$items_arr[] = $item->getOrderItemId();
+			}
+			foreach($order->getAllItems() as $item) {
+				if(!in_array($item->getId(),$items_arr))
+					continue;
+				static $item_id = 0;
+				if($item->getData('product_type')=='ugiftcert') {
+					$item_data['certificate_data'] = $item->getData('certificate_data');
+					$infos = unserialize($item->getData('product_options'));
+					$info = $infos['info_buyRequest'];
+					$item_data['recipient_infos']['recipient_name'] = $info['recipient_name'];
+					if($info['recipient_email']) {
+						$item_data['recipient_infos']['recipient_email'] = $info['recipient_email'];
+					} else {
+						$item_data['recipient_infos']['recipient_address'] = $info['recipient_address'];
+					}
+					$item_data['recipient_infos']['recipient_message'] = $info['recipient_message'];
+					$item_data['recipient_infos']['qty'] = $info['qty'];
+				}
+				$item_data['data'] = $item->getData();
+				unset($item_data['data']['product']);//remove product
+				$datatopost['items'][$item_id] = $item_data;
+				$item_id++;
+			}
+			$datatopost['shipment_data'] = $shipment->getData();
+			$statuses = Mage::getSingleton('udropship/source')->setPath('shipment_statuses')->toOptionHash();
+			$datatopost['shipment_data']['status'] = $statuses[$shipment->getData('udropship_status')];
+			try {
+				$service = new ServiceAClass($apiForm);
+				$response = $service->initiate(json_encode($datatopost));
+				Mage::app('admin');
+				Mage::register('isSecureArea', 1);
+				$shipment->setApiOrderDetails(json_encode($response))->save();
+			} catch(Exception $e) {
+				//print errors in the service API
+			}
+		}
+
 	}
 	
 	/**

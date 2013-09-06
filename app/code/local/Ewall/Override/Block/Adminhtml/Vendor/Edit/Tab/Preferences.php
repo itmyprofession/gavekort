@@ -99,10 +99,16 @@ class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Preferences extends Unirgy_
         $vendor_api_form = $form->addFieldset('vendor_api_form', array(
             'legend'=>$hlp->__('Vendor API Info')
         ));
-        $vendor_api_form->addField('vendor_api_url', 'text', array(
-            'name'      => 'vendor_api_url',
-            'label'     => $hlp->__('Vendor API URL'),
-            'note'		=> $hlp->__('Order details will be sent to this URL for shipment creation and status change of shipment'),
+        $vendor_api_form->addField('vendor_api_shortname', 'select', array(
+            'name'      => 'vendor_api_shortname',
+            'label'     => $hlp->__('Service Name'),
+            'note'		=> $hlp->__('Select API Service'),
+            'values' => Mage::helper('override')->getServices(),
+        ));
+        $vendor_api_form->addField('vendor_api_form_value', 'textarea', array(
+            'name'      => 'vendor_api_form_value',
+            'label'     => $hlp->__('API form data'),
+            'note'		=> $hlp->__('Provide Vendor API form data.<br/>Syntax: variable1=value1;variable2=value2;<br/>EX: url=http://example.com/api.php'),
         ));
 		$create_per_item_shipment = $form->addFieldset('create_per_item_shipments', array(
             'legend'=>$hlp->__('Shipment Information')

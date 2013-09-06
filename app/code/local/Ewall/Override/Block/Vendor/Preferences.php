@@ -121,14 +121,8 @@ class Ewall_Override_Block_Vendor_Preferences extends Unirgy_Dropship_Block_Vend
             'position' => 1000,
             'legend' => 'Vendor API',
             'fields' => array(
-				'vendor_api_url' => array(
-                    'position' => 1,
-                    'name' => 'vendor_api_url',
-                    'type' => 'text',
-                    'label' => 'Vendor API URL',
-                ),
                 'create_per_item_shipment' => array(
-                    'position' => 2,
+                    'position' => 1,
                     'name' => 'create_per_item_shipment',
                     'type' => 'select',
                     'label' => 'Supprt Detailed Shipment',

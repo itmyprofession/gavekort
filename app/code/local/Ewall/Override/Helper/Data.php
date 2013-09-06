@@ -13,6 +13,7 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 	 */
 	public function sendShipmentNotificationEmail()
 	{
+		//collect shipments which suppots the timed dispatch
 		if (Mage::helper('udropship')->isSalesFlat()) {
 			$res = Mage::getSingleton('core/resource');
 			$shipment_collection = Mage::getResourceModel('sales/order_shipment_grid_collection');
@@ -47,6 +48,7 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 			);
 			$shipment_collection->getSelect()->where('vendor.vendor_timed_dispatch=1 AND vendor.vendor_timed_dispatch_no>1 AND udropship_status=0');
 		}
+		//collect shipments which has the send on date
 		foreach($shipment_collection as $shipment) {
 			foreach($shipment->getAllItems() as $item) {
 				$item = Mage::getModel('sales/order_item')->load($item->getOrderItemId());
@@ -67,6 +69,7 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 			$delivery_date = strtotime($date);
 			$date_diff = (($delivery_date - $today)/(60 * 60))/24;
 			$should_send = $date_diff - $before_date;
+			// Send shipment notification if condition matches with dates
 			if($should_send<1 && $should_send>=0) {
 				Mage::helper('override')->sendNotificationEmail($ships);
 			}
@@ -170,6 +173,13 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
         return $shipment;
 	}
 	
+	/**
+	 * Get the destination email addresses to send copies to
+	 * 
+	 * @param integer $storeId
+	 * @param const $configPath
+	 * @return boolean
+	 */
 	protected function _getEmails($storeId, $configPath)
     {
         $data = Mage::getStoreConfig($configPath, $storeId);
@@ -219,7 +229,23 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Get balance check url to customer
 	 */
-	public function getBalanceCheckUrl(){
+	public function getBalanceCheckUrl()
+	{
 		return Mage::getUrl('ugiftcert/customer/balance/');
+	}
+	
+	/**
+	 * Get available API service classes names
+	 */
+	public function getServices()
+	{
+		foreach(glob(Mage::getBaseDir('base').DS.Mage::getStoreConfig('udropship/vendor_api_config/path').'*Class.php') as $file) {
+			if($file==Mage::getBaseDir('base').'/rest/AbstractClass.php')
+				continue;
+			$_name = explode('.php',$file);
+			$name = explode(Mage::getBaseDir('base').'/rest/', $_name[0]);
+			$services[] = array('value' => $name[1], 'label' => $name[1]);
+		}
+		return $services;
 	}
 }

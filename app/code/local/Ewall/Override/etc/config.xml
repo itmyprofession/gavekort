@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ewall_Override>
-			<version>0.1.12</version>
+			<version>0.1.14</version>
 		</Ewall_Override>
 	</modules>
 	<frontend>
@@ -256,6 +256,24 @@
                     </override>
                 </observers>
 			</controller_action_predispatch_ugiftcertadmin_adminhtml_cert_massDelete>
+            <controller_action_predispatch_udropshipadmin_adminhtml_shipment_addComment>
+				<observers>
+                    <override>
+                        <type>model</type>
+                        <class>override/observer</class>
+                        <method>controller_action_predispatch_udropshipadmin_adminhtml_shipment_addComment</method>
+                    </override>
+                </observers>
+			</controller_action_predispatch_udropshipadmin_adminhtml_shipment_addComment>
+			<!--sales_order_resource_save_attribute_after>
+				<observers>
+					<override>
+						<type>model</type>>
+						<class>override/observer</class>
+						<method>sales_order_resource_save_attribute_after</method>
+					</override>
+				</observers>
+			</sales_order_resource_save_attribute_after-->
         </events>
         <template>
             <email>
