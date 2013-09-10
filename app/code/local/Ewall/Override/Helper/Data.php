@@ -240,12 +240,28 @@ class Ewall_Override_Helper_Data extends Mage_Core_Helper_Abstract
 	public function getServices()
 	{
 		foreach(glob(Mage::getBaseDir('base').DS.Mage::getStoreConfig('udropship/vendor_api_config/path').'*Class.php') as $file) {
-			if($file==Mage::getBaseDir('base').'/rest/AbstractClass.php')
+			if($file==Mage::getBaseDir('base').'/rest/VendorApiPluginBaseClass.php')
 				continue;
 			$_name = explode('.php',$file);
 			$name = explode(Mage::getBaseDir('base').'/rest/', $_name[0]);
 			$services[] = array('value' => $name[1], 'label' => $name[1]);
 		}
 		return $services;
+	}
+	
+	/**
+	 * To prevent shipment save after event observer using direct queries since there will recursive calls
+	 * 
+	 * @param Shipment_Id $id
+	 * @param Key $key
+	 * @param Value $val
+	 */
+	public function setShipmentDetail($id, $key, $val)
+	{
+		$resource = Mage::getSingleton('core/resource');
+		$writeConnection = $resource->getConnection('core_write');
+		$table = $resource->getTableName('sales/shipment');
+		$query = "UPDATE {$table} SET {$key} = '{$val}' WHERE entity_id = ".(int)$id;
+		$writeConnection->query($query);
 	}
 }

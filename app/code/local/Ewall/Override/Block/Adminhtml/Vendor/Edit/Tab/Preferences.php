@@ -107,8 +107,8 @@ class Ewall_Override_Block_Adminhtml_Vendor_Edit_Tab_Preferences extends Unirgy_
         ));
         $vendor_api_form->addField('vendor_api_form_value', 'textarea', array(
             'name'      => 'vendor_api_form_value',
-            'label'     => $hlp->__('API form data'),
-            'note'		=> $hlp->__('Provide Vendor API form data.<br/>Syntax: variable1=value1;variable2=value2;<br/>EX: url=http://example.com/api.php'),
+            'label'     => $hlp->__('Service Configuration'),
+            'note'		=> $hlp->__('Provide Service configuration data.<br/>The format of the configuration data is decided by the plugin.<br/>Example: url=http://example.com/api.php'),
         ));
 		$create_per_item_shipment = $form->addFieldset('create_per_item_shipments', array(
             'legend'=>$hlp->__('Shipment Information')

@@ -11,8 +11,6 @@ Mage::app('admin');
 Mage::register('isSecureArea', 1);
 Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
-require('ServiceAClass.php');
-
 // Fetch shipment collection where the returned API order details are saved
 if (Mage::helper('udropship')->isSalesFlat()) {
 	$res = Mage::getSingleton('core/resource');
@@ -52,11 +50,20 @@ foreach($shipmentCollection as $shipment) {
 		require_once($serviceApi);
 		$service = new ServiceAClass($apiForm);
 		$response = $service->getOrderStatus($shipment->getApiOrderDetails());
-		Mage::log(
+		// Shipment status will updated to the system only if the status ID available in Magento
+		$statuses = Mage::getSingleton('udropship/source')->setPath('shipment_statuses')->toOptionHash();
+		$statuses_ids = array_keys($statuses);
+		if(in_array($response, $statuses_ids)) {
+			Mage::helper('override')->setShipmentDetail($shipment->getId(), 'udropship_status', $response);
+			//$shipment->setUdropshipStatus($response)->save();
+		}
+		
+		//uncomment the below to enable logs
+		/* Mage::log(
 			$response,
 			Zend_Log::DEBUG,
 			'order_status_api.log',
 			true
-		);
+		); */
 	}
 }

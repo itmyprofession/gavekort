@@ -1,8 +1,8 @@
 <?php
 
-require('AbstractClass.php');
+require('VendorApiPluginBaseClass.php');
 
-class ServiceAClass extends AbstractClass
+class ServiceAClass extends VendorApiPluginBaseClass
 {
 	
     public function __construct($config)
@@ -64,7 +64,9 @@ class ServiceAClass extends AbstractClass
 				$ch = curl_init ($url);
 				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 				$returndata = curl_exec ($ch);
-				return $returndata;
+				// Return appropirate shipment ID based on the received status
+				$val = array('CANCELLED' => 6, 'OPEN' => 0, 'SHIPPED' => 1, 'COMPLETED' => 7);
+				return $val[$returndata];
 			}
 		} catch(Exception $e) {
 			//print errors

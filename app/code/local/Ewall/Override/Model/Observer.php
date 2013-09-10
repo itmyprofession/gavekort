@@ -172,7 +172,8 @@ class Ewall_Override_Model_Observer extends Varien_Object
 				$response = $service->initiate(json_encode($datatopost));
 				Mage::app('admin');
 				Mage::register('isSecureArea', 1);
-				$shipment->setApiOrderDetails(json_encode($response))->save();
+				Mage::helper('override')->setShipmentDetail($shipment->getId(), 'api_order_details', json_encode($response));
+				//$shipment->setApiOrderDetails(json_encode($response))->save();
 			} catch(Exception $e) {
 				//print errors in the service API
 			}
