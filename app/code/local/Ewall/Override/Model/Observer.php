@@ -168,7 +168,7 @@ class Ewall_Override_Model_Observer extends Varien_Object
 			$statuses = Mage::getSingleton('udropship/source')->setPath('shipment_statuses')->toOptionHash();
 			$datatopost['shipment_data']['status'] = $statuses[$shipment->getData('udropship_status')];
 			try {
-				$service = new ServiceAClass($apiForm);
+				$service = new $apiName($apiForm);
 				$response = $service->initiate(json_encode($datatopost));
 				Mage::app('admin');
 				Mage::register('isSecureArea', 1);
